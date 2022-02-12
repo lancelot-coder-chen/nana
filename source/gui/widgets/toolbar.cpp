@@ -348,8 +348,12 @@ namespace nana
 							txtx += item_renderer::extra_size / 2;
 						else
 							txtx += scale + item_renderer::extra_size;
-
-						graph.string({ txtx, y + static_cast<int>(height - item.textsize.height) / 2 }, item.text, fgcolor);
+						auto show_text = item.text;
+						if ((!item.dropdown_items.empty()) && (item.dropdown_module.have_selected))
+						{
+							show_text = item.dropdown_items[item.dropdown_module.index]->text();
+						}
+						graph.string({ txtx, y + static_cast<int>(height - item.textsize.height) / 2 }, show_text, fgcolor);
 					}
 
 					if(item.type == tools::dropdown)
